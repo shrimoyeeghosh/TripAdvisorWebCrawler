@@ -7,7 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 driver = webdriver.Chrome("/usr/bin/chromedriver")
 
 # insert the tripadvisor's website of one attraction
-driver.get("https://www.tripadvisor.in/Attraction_Review-g503703-d666591-Reviews-Jagannath_Temple-Puri_Puri_District_Odisha.html")
+driver.get("")
 
 # function to check if the button is on the page, to avoid miss-click problem
 def check_exists_by_xpath(xpath):
@@ -16,10 +16,7 @@ def check_exists_by_xpath(xpath):
     except NoSuchElementException:
         return False
     return True
-# code for selecting the review rating?
-"""time.sleep(2)
-driver.find_element_by_xpath('//label[@for="ReviewRatingFilter_5"]').click()
-time.sleep(2) """
+
 
 # open the file to save the review
 with open('jtreviews.tsv', 'a') as out_file:
@@ -30,9 +27,7 @@ with open('jtreviews.tsv', 'a') as out_file:
     tsv_writer.writerow(
         ["score", "location", "review"])
 
-    # change the value inside the range to save more or less
-
-    # this part controls the number of pages in the TripAdvisor place
+    # change the value inside the range to save more or less pages
     for i in range(0, 538):
         # PRINT THE CURRENT PAGE
         print(i)
@@ -75,11 +70,9 @@ with open('jtreviews.tsv', 'a') as out_file:
             freview = reviewsmaller[0]
             #print(reviewsmaller)
 
-            # to save in a csv file readable the star and the review [Ex: 50,"I love this place"]
             tsv_writer.writerow(
               [data[3], location[2], freview])
-            #tsv_writer.writerow(
-               #[data[3], location[2], container[j].find_element_by_xpath(".//q[@class='IRsGHoPm']").text.replace("\n", "")])
+           
 
         # to change the page
         if (check_exists_by_xpath('//a[@class="ui_button nav next primary "]')):
